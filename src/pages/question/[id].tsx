@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import PageWrapper from '../components/PageWrapper'
 import { getQuestionById } from '@/services/question'
+import { getComponent } from '@/pages/components/QuestionComponents'
 import styles from '@/styles/Question.module.scss'
-import QuestionInput from '../components/QuestionComponents/QuestionInput'
-import QuestionRadio from '../components/QuestionComponents/QuestionRadio'
 
 type PropsType = {
   errno: number
@@ -14,7 +14,6 @@ type PropsType = {
     css?: string
     isPublished: boolean
     isDeleted: boolean
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     componentList: any[]
   }
   msg?: string
@@ -22,7 +21,7 @@ type PropsType = {
 
 export default function About(props: PropsType) {
   const { errno, data, msg = '' } = props
-  const { id, title = '', desc = '', isDeleted, isPublished } = data || {}
+  const { id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
 
   // 问卷没有
   if (errno !== 0) {
@@ -56,20 +55,14 @@ export default function About(props: PropsType) {
     <PageWrapper title={title} desc={desc}>
       <form action="/api/answer" method="post">
         <input type="hidden" name="questionId" defaultValue={id} />
-        <div className={styles['component-wrapper']}>
-          <QuestionInput fe_id="c1" props={{ title: '姓名', placeholder: '请输入姓名' }} />
-        </div>
-        <div className={styles['component-wrapper']}>
-          <QuestionRadio
-            fe_id="c2"
-            props={{
-              title: '内驱周期',
-              options: ['1个月', '2个月', '3个月'],
-              selectedOption: '2个月',
-              isVertical: false,
-            }}
-          />
-        </div>
+
+        {componentList.map(comp => {
+          return (
+            <div key={comp.fe_id} className={styles['component-wrapper']}>
+              {getComponent(comp)}
+            </div>
+          )
+        })}
 
         <div className={styles['submit-wrapper']}>
           <button type="submit">提交</button>
@@ -79,7 +72,6 @@ export default function About(props: PropsType) {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getServerSideProps(context: any) {
   // 通过 id 获取问卷信息
   const { id = '' } = context.params

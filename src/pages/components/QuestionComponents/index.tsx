@@ -1,5 +1,8 @@
 import QuestionInput from './QuestionInput'
 import QuestionRadio from './QuestionRadio'
+import QuestionTitle from './QuestionTitle'
+import QuestionInfo from './QuestionInfo'
+import QuestionParagraph from './QuestionParagraph'
 
 type ComponentInfoType = {
   fe_id: string
@@ -20,6 +23,18 @@ export const getComponent = (comp: ComponentInfoType) => {
 
   if (type === 'QuestionRadio') {
     return <QuestionRadio fe_id={fe_id} props={props} />
+  }
+
+  if (type === 'QuestionTitle') {
+    return <QuestionTitle {...props} />
+  }
+
+  if (type === 'QuestionInfo') {
+    return <QuestionInfo {...props} />
+  }
+
+  if (type === 'QuestionParagraph') {
+    return <QuestionParagraph {...props} />
   }
 
   // 兜底

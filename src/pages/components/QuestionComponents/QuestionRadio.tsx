@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import styles from './QduestionRadio.module.scss'
+import styles from './QuestionRadio.module.scss'
 
 type PropsType = {
   fe_id: string

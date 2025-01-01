@@ -4,6 +4,7 @@ import QuestionTitle from './QuestionTitle'
 import QuestionInfo from './QuestionInfo'
 import QuestionParagraph from './QuestionParagraph'
 import QuestionTextarea from './QuestionTextarea'
+import QuestionCheckbox from './QuestionCheckbox'
 
 type ComponentInfoType = {
   fe_id: string
@@ -40,6 +41,10 @@ export const getComponent = (comp: ComponentInfoType) => {
 
   if (type === 'QuestionTextarea') {
     return <QuestionTextarea fe_id={fe_id} props={props} />
+  }
+
+  if (type === 'QuestionCheckbox') {
+    return <QuestionCheckbox fe_id={fe_id} props={props} />
   }
 
   // 兜底

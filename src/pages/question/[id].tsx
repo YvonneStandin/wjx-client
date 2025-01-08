@@ -7,7 +7,7 @@ import styles from '@/styles/Question.module.scss'
 type PropsType = {
   errno: number
   data?: {
-    id: string
+    _id: string
     title: string
     desc?: string
     js?: string
@@ -21,7 +21,7 @@ type PropsType = {
 
 export default function About(props: PropsType) {
   const { errno, data, msg = '' } = props
-  const { id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
+  const { _id: id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
 
   // 问卷没有
   if (errno !== 0) {

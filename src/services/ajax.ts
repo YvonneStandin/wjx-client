@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const HOST = 'http://localhost:3001'
+// const HOST = 'http://localhost:3001' // Mock
+const HOST = 'http://localhost:3005' // nest 服务端
 
 export async function get(url: string) {
   const res = await fetch(`${HOST}${url}`)
@@ -10,6 +11,9 @@ export async function get(url: string) {
 export async function post(url: string, body: any) {
   const res = await fetch(`${HOST}${url}`, {
     method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(body),
   })
   const data = res.json()
